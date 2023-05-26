@@ -1,0 +1,153 @@
+# Ensure to use 'dev' environment from http-client.env.json
+
+# Creating products
+POST {{baseUrl}}/products/
+Content-Type: application/json
+
+{
+  "title": "Solid State Drive",
+  "description": "Reliable and fast 512GB solid state drive"
+}
+###
+
+POST {{baseUrl}}/products/
+Content-Type: application/json
+
+{
+  "title": "Graphics Card",
+  "description": "High performance graphics card suitable for gaming and professional design"
+}
+###
+
+POST {{baseUrl}}/products/
+Content-Type: application/json
+
+{
+  "title": "DDR4 RAM",
+  "description": "16GB DDR4 memory module for improved multitasking"
+}
+###
+
+# Retrieving products
+GET {{baseUrl}}/products/
+Content-Type: application/json
+###
+
+# Updating a product
+PATCH {{baseUrl}}/products/1/
+Content-Type: application/json
+
+{
+  "description": "Highly reliable and fast 1TB solid state drive"
+}
+###
+
+# Deleting a product
+DELETE {{baseUrl}}/products/1/
+Content-Type: application/json
+###
+
+# Searching products by name and description
+GET {{baseUrl}}/products/?search=solid
+Content-Type: application/json
+###
+
+# Searching products by description
+GET {{baseUrl}}/products/?search=gaming
+Content-Type: application/json
+###
+
+# Creating a warehouse
+POST {{baseUrl}}/stocks/
+Content-Type: application/json
+
+{
+  "address": "Kaiserstraße 10, 60311 Frankfurt am Main, Germany",
+  "positions": [
+        {
+          "product": 2,
+          "quantity": 250,
+          "price": 120.50
+        },
+        {
+          "product": 3,
+          "quantity": 100,
+          "price": 180
+        }
+  ]
+}
+###
+
+# Updating records in a warehouse
+PATCH {{baseUrl}}/stocks/1/
+Content-Type: application/json
+
+{
+  "positions": [
+          {
+            "product": 2,
+            "quantity": 100,
+            "price": 130.80
+          },
+          {
+            "product": 3,
+            "quantity": 243,
+            "price": 145
+          }
+  ]
+}
+###
+
+# Updating a record with position removal
+PATCH {{baseUrl}}/stocks/1/
+Content-Type: application/json
+
+{
+  "positions": [
+            {
+              "product": 2,
+              "quantity": 100,
+              "price": 130.80
+            }
+  ]
+}
+###
+
+# Updating a record with a position addition (REMEMBER TO RE-CREATE THE SSD!)
+PATCH {{baseUrl}}/stocks/1/
+Content-Type: application/json
+
+{
+  "positions": [
+            {
+              "product": 2,
+              "quantity": 100,
+              "price": 130.80
+            },
+            {
+              "product": 3,
+              "quantity": 170,
+              "price": 120.80
+            },
+            {
+              "product": 4,
+              "quantity": 170,
+              "price": 120.80
+            }
+  ]
+}
+###
+
+# Searching warehouses where a particular product is present (product.id)
+GET {{baseUrl}}/stocks/?products=3
+Content-Type: application/json
+###
+
+# Searching warehouses where a particular product is present (product.title)
+GET {{baseUrl}}/stocks/?products=drive
+Content-Type: application/json
+###
+
+# Searching warehouses where a particular product is present (product.description)
+GET {{baseUrl}}/stocks/?products=memory
+Content-Type: application/json
